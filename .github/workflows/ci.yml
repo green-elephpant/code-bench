@@ -1,0 +1,48 @@
+name: Continuous Integration
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      ###################
+      # Stage 1 - Build #
+      ###################
+      - name: Checkout latest revision
+        uses: actions/checkout@v3
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.2'
+          coverage: pcov
+
+      - name: Install composer dependencies
+        uses: ramsey/composer-install@v2
+
+      ###########################
+      # Stage 2 - Code Analysis #
+      ###########################
+      - name: Code Style Fixer
+        run: vendor/bin/php-cs-fixer fix src --dry-run
+
+      - name: Static Code Analysis
+        run: vendor/bin/phpstan
+
+      ###################
+      # Stage 3 - Tests #
+      ###################
+      - name: Unit Tests
+        run: php -d pcov.enabled=1 -d pcov.directory=./src -d pcov.exclude="~vendor~" vendor/bin/phpunit --coverage-clover=coverage.xml
+
+      - name: Coverage Report as Comment (Clover)
+        uses: lucassabreu/comment-coverage-clover@main
+        with:
+          file: coverage.xml
