@@ -1,8 +1,7 @@
-<!-- p align="center">
-	<img src="https://media.carstenwindler.de/green-elephpant/green-elephpant-logo.svg" alt="Green ElePHPant" width="400">
-</p--->
-
-<h1 style="text-align:center;">Green ElePHPant - CodeBench</h1>
+<p align="center">
+	<img src="./docs/images/green-elephpant-logo.svg" alt="Green ElePHPant" width="400">
+</p>
+<h1 align="center">Green ElePHPant - CodeBench</h1>
 
 ------
 
