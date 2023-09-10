@@ -85,7 +85,7 @@ class CodeBench
 
         foreach ($callbacks as $label => $callback) {
             if (is_int($label)) {
-                $label = sprintf('Function %d', $label);
+                $label = sprintf('Function %d', ($label + 1));
             }
 
             $results[$label] = self::benchmarkCallable($callback, $iterations, $preRunCallable);
@@ -120,6 +120,7 @@ class CodeBench
 
         $endTime = microtime(true);
         $endMemoryUsage = memory_get_usage();
+
         if (function_exists('memory_reset_peak_usage')) {
             $memoryPeak = memory_get_peak_usage();
         } else {
