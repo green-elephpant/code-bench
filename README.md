@@ -3,8 +3,6 @@
 </p>
 <h1 align="center">Green ElePHPant - CodeBench</h1>
 
-------
-
 The **Green ElePHPant** wants to help you to reduce the carbon emissions of your software.
 
 One way of doing so is to optimize the performance. Less CPU, RAM and Storage means reduced energy consumption, fewer 
