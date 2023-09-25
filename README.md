@@ -27,7 +27,7 @@ between several options.
 
 Simply use composer to add `GreenElephpant\CodeBench` to your project:
 
-`composer require-dev green-elephpant/code-bench`
+`composer require green-elephpant/code-bench --dev`
 
 *Note:* we use `require-dev` here, since `GreenElephpant\CodeBench` should not be used in production code.
 
