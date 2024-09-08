@@ -7,9 +7,6 @@ on:
       - main
   pull_request:
 
-permissions:
-  pull-requests: write
-
 jobs:
   pipeline:
     runs-on: ubuntu-latest
@@ -47,5 +44,6 @@ jobs:
 
       - name: Coverage Report as Comment (Clover)
         uses: lucassabreu/comment-coverage-clover@main
+        if: github.event_name == 'pull_request'
         with:
           file: coverage.xml
