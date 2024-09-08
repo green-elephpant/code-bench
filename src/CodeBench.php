@@ -7,7 +7,7 @@ namespace GreenElephpant\CodeBench;
 class CodeBench
 {
     /**
-     * @var callable
+     * @var callable|null
      */
     public static $loggerCallable;
 
@@ -61,7 +61,7 @@ class CodeBench
 
     private static function output(string $text = ""): void
     {
-        if (self::$loggerCallable) {
+        if (is_callable(self::$loggerCallable)) {
             call_user_func(self::$loggerCallable, $text);
         } else {
             print $text . PHP_EOL;
