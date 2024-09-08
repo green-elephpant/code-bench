@@ -11,7 +11,7 @@ final class CodeBenchTest extends TestCase
 {
     public function testBenchmarkToArray(): void
     {
-      $result = CodeBench::benchmarkToArray([
+        $result = CodeBench::benchmarkToArray([
             'func1' => function () {
                 usleep(1);
             },
@@ -32,5 +32,24 @@ final class CodeBenchTest extends TestCase
         $this->assertArrayHasKey('execution_time', $result['func2']);
         $this->assertArrayHasKey('memory_usage', $result['func2']);
         $this->assertArrayHasKey('memory_peak_usage', $result['func2']);
+    }
+
+    public function testLoggerCallable(): void
+    {
+        $expectedLog = [];
+
+        CodeBench::$loggerCallable = function(string $text) use (&$expectedLog) {
+            $expectedLog[] = $text;
+        };
+
+        CodeBench::benchmark([
+            'func1' => function () {
+                usleep(1);
+            }
+        ]);
+
+        CodeBench::$loggerCallable = null;
+
+        $this->assertEquals('func1', $expectedLog[0]);
     }
 }

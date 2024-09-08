@@ -7,6 +7,11 @@ namespace GreenElephpant\CodeBench;
 class CodeBench
 {
     /**
+     * @var callable
+     */
+    public static $loggerCallable;
+
+    /**
      * @param array<string, array<string|int, (float|int)>> $results
      */
     private static function outputResults(array $results): void
@@ -56,7 +61,11 @@ class CodeBench
 
     private static function output(string $text = ""): void
     {
-        print $text . PHP_EOL;
+        if (self::$loggerCallable) {
+            call_user_func(self::$loggerCallable, $text);
+        } else {
+            print $text . PHP_EOL;
+        }
     }
 
     /**

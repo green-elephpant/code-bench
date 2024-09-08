@@ -27,18 +27,37 @@ between several options.
 
 Simply use composer to add `GreenElephpant\CodeBench` to your project:
 
-`composer require green-elephpant/code-bench --dev`
+`composer require green-elephpant/code-bench --dev` 
 
 *Note:* we use `require-dev` here, since `GreenElephpant\CodeBench` should not be used in production code.
 
-*Note:* `GreenElephpant\CodeBench` works with PHP 7.2+ to support most code bases. However, only since PHP 8.2 the 
+*Note:* for Laravel, you can use the package [CodeBench Laravel](https://github.com/green-elephpant/code-bench-laravel).
+
+*Note:* `GreenElephpant\CodeBench` works with PHP 7.4+ to support most code bases. However, only since PHP 8.2 the 
 function[memory_reset_peak_usage](https://www.php.net/manual/en/function.memory-reset-peak-usage.php) is available. With
 earlier verions, you will not be able to monitor the peak memory usage with this tool.
 
 ## Configuration
 
 `GreenElephpant\CodeBench` is designed to require no other dependencies to keep its footprint small, so there is
-nothing more to do - just use it when needed. All possible options are passed with the function call.
+nothing much to do.
+
+### Set Logger callable
+
+By default, `GreenElephpant\CodeBench` uses `print` for logging. However, you can set a callable which takes the output
+and you can log it where you want.
+
+For example, in Laravel you could do
+
+```php
+CodeBench::$loggerCallable = function (string $text) {
+    Log::debug($text);
+};
+```
+
+to use whatever logger you have defined.
+
+*Note*: the [CodeBench Laravel](https://github.com/green-elephpant/code-bench-laravel) package does that for you.
 
 ## Usage
 
@@ -117,10 +136,3 @@ CodeBench::benchmark([
     }
 ], 100, false);
 ```
-
-## Todos
-
-* Adjust time display if smaller than a second
-* show use() example
-* implement loop parameter
-
