@@ -110,7 +110,7 @@ and take the average. This behaviour is controlled by the `$iterations` paramete
 each callable 100 times: 
 
 ```php
-CodeBench::benchmark([
+GreenElephpant\CodeBench\CodeBench::benchmark([
     function () {
         date('D M d Y H:m:s');
     },
@@ -127,7 +127,7 @@ is to avoid side effects by e.g. cache warmups. To disable this behaviour, run t
 to `false`:
 
 ```php
-CodeBench::benchmark([
+GreenElephpant\CodeBench\CodeBench::benchmark([
     function () {
         date('D M d Y H:m:s');
     },
@@ -135,4 +135,21 @@ CodeBench::benchmark([
         (new DateTime())->format('D M d Y H:m:s');
     }
 ], 100, false);
+```
+
+### Stopwatch
+
+You can use the `start()` and `stop()` functions to measure the performance of a code block.
+
+```php
+use GreenElephpant\CodeBench\CodeBench;
+
+CodeBench::start();
+
+// Your code block here
+for ($i = 0; $i < 1000; $i++) {
+    expensive_function_call();
+}
+
+CodeBench::stop();
 ```
