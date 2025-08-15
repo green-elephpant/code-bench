@@ -16,7 +16,8 @@ class CodeBench
      */
     private static array $stopwatch = [];
 
-    public static function start(): void {
+    public static function start(): void
+    {
         self::$stopwatch['startMemoryUsage'] = memory_get_usage();
 
         if (function_exists('memory_reset_peak_usage')) {
@@ -26,7 +27,8 @@ class CodeBench
         self::$stopwatch['startTime'] = microtime(true);
     }
 
-    public static function stop(): void {
+    public static function stop(): void
+    {
         $endTime = microtime(true);
         $endMemoryUsage = memory_get_usage();
 
