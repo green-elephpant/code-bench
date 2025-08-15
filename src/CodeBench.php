@@ -12,6 +12,41 @@ class CodeBench
     public static $loggerCallable;
 
     /**
+     * @var array<string, float|int>
+     */
+    private static array $stopwatch = [];
+
+    public static function start(): void {
+        self::$stopwatch['startMemoryUsage'] = memory_get_usage();
+
+        if (function_exists('memory_reset_peak_usage')) {
+            memory_reset_peak_usage();
+        }
+
+        self::$stopwatch['startTime'] = microtime(true);
+    }
+
+    public static function stop(): void {
+        $endTime = microtime(true);
+        $endMemoryUsage = memory_get_usage();
+
+        if (function_exists('memory_reset_peak_usage')) {
+            $memoryPeak = memory_get_peak_usage();
+        } else {
+            $memoryPeak = 0;
+        }
+
+        $results = [
+            'timestamp' => time(),
+            'execution_time' => $endTime - self::$stopwatch['startTime'],
+            'memory_usage' => $endMemoryUsage - self::$stopwatch['startMemoryUsage'],
+            'memory_peak_usage' => $memoryPeak
+        ];
+
+        self::outputResults(['Stopwatch' => $results]);
+    }
+
+    /**
      * @param array<string, array<string|int, (float|int)>> $results
      */
     private static function outputResults(array $results): void

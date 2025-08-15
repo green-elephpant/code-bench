@@ -35,7 +35,7 @@ Simply use composer to add `GreenElephpant\CodeBench` to your project:
 
 *Note:* `GreenElephpant\CodeBench` works with PHP 7.4+ to support most code bases. However, only since PHP 8.2 the 
 function[memory_reset_peak_usage](https://www.php.net/manual/en/function.memory-reset-peak-usage.php) is available. With
-earlier verions, you will not be able to monitor the peak memory usage with this tool.
+earlier versions, you will not be able to monitor the peak memory usage with this tool.
 
 ## Configuration
 

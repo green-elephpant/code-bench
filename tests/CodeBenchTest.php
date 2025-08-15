@@ -52,4 +52,21 @@ final class CodeBenchTest extends TestCase
 
         $this->assertEquals('func1', $expectedLog[0]);
     }
+
+    public function testStartAndStop(): void
+    {
+        $expectedLog = [];
+
+        CodeBench::$loggerCallable = function(string $text) use (&$expectedLog) {
+            $expectedLog[] = $text;
+        };
+
+        CodeBench::start();
+        usleep(1000); // Simulate some processing time
+        CodeBench::stop();
+
+        $this->assertEquals('Stopwatch', $expectedLog[0]);
+        $this->assertStringContainsString('Time (seconds):',$expectedLog[1]);
+        $this->assertStringContainsString('Memory (MB):',$expectedLog[2]);
+    }
 }
